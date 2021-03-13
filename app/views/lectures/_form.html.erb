@@ -1,0 +1,11 @@
+<%= simple_form_for @lecture do |f| %>
+  <%= f.input :name %>
+  <%= f.input :description %>
+  <%= f.input :teachers %>
+  <%= f.input :location %>
+  <%= f.input :max_students %>
+  <%= f.input :start_date %>
+  <%= f.input :duration %>
+  <%= f.input :status %>
+  <%= f.submit :create, class: 'btn btn-success' %>
+<% end %>

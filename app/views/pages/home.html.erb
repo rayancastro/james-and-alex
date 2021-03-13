@@ -5,3 +5,8 @@
 <% if policy(Lecture).create? %>
   <%= link_to "Create lecture", new_lecture_path %>
 <% end %>
+
+
+<% if policy(Lecture).index? %>
+  <%= link_to "See lectures", lectures_path %>
+<% end %>
