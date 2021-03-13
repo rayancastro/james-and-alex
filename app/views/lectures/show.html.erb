@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="white-card">
+    <div class="lecture-admin">
+      <h4>Men</h4>
+      <div class="registrations">
+        <% @lecture.students.each do |student| %>
+          <p><%= student.full_name %></p>
+        <% end %>
+      </div>
+
+      <h4>Women</h4>
+      <div class="registrations">
+        <% @lecture.students.each do |student| %>
+          <p><%= student.full_name %></p>
+        <% end %>
+      </div>
+
+    </div>
+  </div>
+</div>
+
