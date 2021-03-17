@@ -1,7 +1,8 @@
 class LecturesController < ApplicationController
   before_action :set_lecture, only: [:show, :edit, :update, :destroy]
   def index
-    @lectures = policy_scope(Lecture)
+    date = params[:start_date].present? ? Date.parse(params[:start_date]) : Date.today
+    @lectures = policy_scope(Lecture).where(start_date: date.beginning_of_day..date.end_of_day )
   end
 
   def show
@@ -48,6 +49,6 @@ class LecturesController < ApplicationController
   end
 
   def lecture_params
-    params.require(:lecture).permit(:name, :description, :teachers, :start_date, :duration, :location, :max_students, :status)
+    params.require(:lecture).permit(:name, :description, :teachers, :start_date, :duration, :location, :max_leads, :max_follows, :status)
   end
 end

@@ -4,4 +4,19 @@
   box-shadow: 2px 3px 7px 2px rgba(0, 0, 0, 0.08);
   border-radius: 2px;
   padding: 20px;
+  position: relative;
+}
+
+
+// .admin-icons {
+//   position: absolute;
+//   top: 0;
+//   right: 0;
+// }
+
+
+.flex-space {
+  display: flex;
+  justify-content: space-between;
+  align-itens: center;
 }

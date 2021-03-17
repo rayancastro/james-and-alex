@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   resources :lectures do
     resources :registrations, only: [:new, :create, :index]
   end
+  resources :registrations, only: [:destroy]
 end

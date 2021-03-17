@@ -1,24 +1,57 @@
 <div class="container">
-  <div class="row">
-    <% @lectures.each do |lecture| %>
-      <div class="col-3">
-        <div class="white-card">
-          <h4><%= lecture.name %></h4>
-          <div class="icons">
-            <% if policy(lecture).edit? %>
-              <%= link_to edit_lecture_path(lecture) do %>
-                <i class="fas fa-edit"></i>
-              <% end %>
-            <% end %>
-            <% if policy(lecture).show? %>
-              <%= link_to lecture_path(lecture) do %>
-                <i class="fas fa-eye"></i>
-              <% end %>
-            <% end %>
-          </div>
 
-        </div>
+  <div class="white-card">
+    <%= calendar(number_of_days: 1) do |date| %>
+      <p>Date: <%= date %></p>
+      <div class="row">
+        <% @lectures.each do |lecture| %>
+          <div class="col-3">
+            <div class="white-card">
+              <div class="flex-space">
+                <h4><%= lecture.name %></h4>
+
+                <div class="admin-icons">
+                  <% if policy(lecture).edit? %>
+                    <%= link_to edit_lecture_path(lecture) do %>
+                      <i class="fas fa-edit"></i>
+                    <% end %>
+                  <% end %>
+                  <% if policy(lecture).show? %>
+                    <%= link_to lecture_path(lecture) do %>
+                      <i class="fas fa-eye"></i>
+                    <% end %>
+                  <% end %>
+                </div>
+              </div>
+                <p>Start: <%= lecture.start_date.strftime("%H:%M") %> </p>
+                <p>Location: <%= lecture.location %> </p>
+                <p>Leads: <%= "#{lecture.leads.count} / #{lecture.max_leads}" %> </p>
+                <p>Follows: <%= "#{lecture.follows.count} / #{lecture.max_follows}" %> </p>
+
+              <div class="icons">
+                <% if registration = current_user.registration_for(lecture) %>
+                  <p style="color: green;"><i class="fas fa-check-circle"></i> Registered as: <%= registration.role %></p>
+                  <% if policy(registration).destroy? %>
+                    <%= link_to "Cancel", registration_path(registration), method: :delete, data: { confirm: "Are you sure?"}  %>
+                  <% end %>
+                <% else %>
+                  <% if policy(Registration.new).new? %>
+                    <%= link_to "Register", new_lecture_registration_path(lecture) %>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+
       </div>
     <% end %>
+
+  </div>
+
+  <div class="row">
+
+
+
   </div>
 </div>
