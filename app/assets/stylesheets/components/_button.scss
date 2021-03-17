@@ -1,0 +1,16 @@
+.black-button {
+  border-radius: 4px;
+  padding: 12px 22px;
+  color: rgb(230, 230, 230);
+  background-color: rgb(0, 0, 0);
+
+  &:hover {
+    color: white;
+    background-color: rgb(10, 10, 10);
+  }
+}
+
+
+.margin-center {
+  margin: 0 auto;
+}
