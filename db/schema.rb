@@ -15,6 +15,16 @@ ActiveRecord::Schema.define(version: 2021_03_17_142649) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "bookings", force: :cascade do |t|
+    t.string "role"
+    t.bigint "user_id", null: false
+    t.bigint "lecture_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["lecture_id"], name: "index_bookings_on_lecture_id"
+    t.index ["user_id"], name: "index_bookings_on_user_id"
+  end
+
   create_table "lectures", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -27,16 +37,6 @@ ActiveRecord::Schema.define(version: 2021_03_17_142649) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "max_leads"
     t.integer "max_follows"
-  end
-
-  create_table "registrations", force: :cascade do |t|
-    t.string "role"
-    t.bigint "user_id", null: false
-    t.bigint "lecture_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["lecture_id"], name: "index_registrations_on_lecture_id"
-    t.index ["user_id"], name: "index_registrations_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -54,6 +54,6 @@ ActiveRecord::Schema.define(version: 2021_03_17_142649) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "registrations", "lectures"
-  add_foreign_key "registrations", "users"
+  add_foreign_key "bookings", "lectures"
+  add_foreign_key "bookings", "users"
 end

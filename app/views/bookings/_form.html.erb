@@ -1,4 +1,4 @@
-<%= simple_form_for [@lecture, @registration] do |f| %>
+<%= simple_form_for [@lecture, @booking] do |f| %>
 
   <%= f.input :role, collection: @lecture.available_roles %>
   <%= f.submit :create, class: 'btn btn-success' %>

@@ -29,14 +29,14 @@
                 <p>Follows: <%= "#{lecture.follows.count} / #{lecture.max_follows}" %> </p>
 
               <div class="icons">
-                <% if registration = current_user.registration_for(lecture) %>
-                  <p style="color: green;"><i class="fas fa-check-circle"></i> Registered as: <%= registration.role %></p>
-                  <% if policy(registration).destroy? %>
-                    <%= link_to "Cancel", registration_path(registration), method: :delete, data: { confirm: "Are you sure?"}  %>
+                <% if booking = current_user.booking_for(lecture) %>
+                  <p style="color: green;"><i class="fas fa-check-circle"></i> Registered as: <%= booking.role %></p>
+                  <% if policy(booking).destroy? %>
+                    <%= link_to "Cancel", booking_path(booking), method: :delete, data: { confirm: "Are you sure?"}  %>
                   <% end %>
                 <% else %>
-                  <% if policy(Registration.new).new? %>
-                    <%= link_to "Register", new_lecture_registration_path(lecture) %>
+                  <% if policy(Booking.new).new? %>
+                    <%= link_to "Register", new_lecture_booking_path(lecture) %>
                   <% end %>
                 <% end %>
               </div>

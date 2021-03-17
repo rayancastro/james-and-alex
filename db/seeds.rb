@@ -8,5 +8,5 @@
 
 
 
-
+User.destroy_all
 User.create(email: 'rayancdc@gmail.com', password: '123456', admin: true)

@@ -1,4 +1,4 @@
-class RegistrationPolicy < ApplicationPolicy
+class BookingPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
       scope.all
@@ -14,6 +14,6 @@ class RegistrationPolicy < ApplicationPolicy
   end
 
   def destroy?
-    record.user = user && record.lecture.upcoming?
+    record.user == user && record.lecture.upcoming?
   end
 end

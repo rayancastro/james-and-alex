@@ -3,8 +3,8 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  has_many :registrations
-  has_many :lectures, through: :registrations
+  has_many :bookings
+  has_many :lectures, through: :bookings
 
   def full_name
     (first_name || last_name) ?
@@ -16,7 +16,7 @@ class User < ApplicationRecord
     lectures.include?(lecture)
   end
 
-  def registration_for(lecture)
-    registrations.find_by(lecture_id: lecture.id)
+  def booking_for(lecture)
+    bookings.find_by(lecture_id: lecture.id)
   end
 end

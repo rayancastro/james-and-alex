@@ -1,21 +1,30 @@
 class Lecture < ApplicationRecord
-  has_many :registrations
-  has_many :students, through: :registrations, source: :user
+  has_many :bookings
+  has_many :students, through: :bookings, source: :user
 
   validates :name, :max_leads, :max_follows, :start_date, :duration, :location, presence: true
   validates :max_leads, :max_follows, numericality: { greater_than_or_equal_to: 0 }
   def leads
-    students.where("registrations.role = 'Lead'")
+    students.where("bookings.role = 'Lead'")
   end
 
   def follows
-    students.where("registrations.role = 'Follow'")
+    students.where("bookings.role = 'Follow'")
   end
 
   def available_roles
     roles = []
-    roles << "Lead" unless leads.count >= max_leads
-    roles << "Follow" unless leads.count >= max_follows
+    roles << "Lead" if available_lead_slots?
+    roles << "Follow" if available_follow_slots?
+    roles
+  end
+
+  def available_lead_slots?
+    leads.count < max_leads
+  end
+
+  def available_follow_slots?
+    follows.count < max_follows
   end
 
   def has_passed?

@@ -11,9 +11,11 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <% if user_signed_in? %>
-        <li class="nav-item active">
-          <%= link_to "New Lecture", new_lecture_path, class: "nav-link" %>
-        </li>
+        <% if policy(Lecture).new? %>
+          <li class="nav-item active">
+            <%= link_to "New Lecture", new_lecture_path, class: "nav-link" %>
+          </li>
+        <% end %>
         <li class="nav-item active">
           <%= link_to "All Lectures", lectures_path, class: "nav-link" %>
         </li>
